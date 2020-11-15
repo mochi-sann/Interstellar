@@ -94,6 +94,22 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "jp.hadashikick.vcontainer": {
+      "version": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer#1.1.1",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "nuget.mono-cecil": "0.1.6-preview"
+      },
+      "hash": "8fd496374974b9198aa2889ac53cdfc5f296690a"
+    },
+    "nuget.mono-cecil": {
+      "version": "0.1.6-preview",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
