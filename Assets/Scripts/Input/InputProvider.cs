@@ -1,30 +1,39 @@
 using System;
 using UnityEngine;
 using UniRx;
+using UniRx.Triggers;
 
-public class InputProvider : IInputProvider
+public class InputProvider : MonoBehaviour, IInputProvider
 {
-	public IObservable<Vector2> onStartDragStream { get; private set; }
-	public IObservable<Vector2> onDragStream { get; private set; }
-	public IObservable<Vector2> onEndDragStream { get; private set; }
-	public Camera mainCamera { get; set; }
-
-	// public Camera mainCamera;
-
-	public InputProvider()
+	private Camera mainCamera;
+	private void Awake()
 	{
 		mainCamera = Camera.main;
+	}
 
-		onStartDragStream = Observable.EveryUpdate().Where(_ => Input.GetMouseButtonDown(0)).Select(_ => (Vector2)mainCamera.ScreenToWorldPoint(Input.mousePosition));
+	public IObservable<Vector2> StartDragAsObservable()
+	{
+		return this.UpdateAsObservable()
+			.Where(_ => Input.GetMouseButtonDown(0))
+			.Select(_ => (Vector2) mainCamera.ScreenToWorldPoint(Input.mousePosition));
+	}
+	
+	public IObservable<Vector2> EndDragStreamAsObservable()
+	{
+		return this.UpdateAsObservable()
+			.Where(_ => Input.GetMouseButtonUp(0))
+			.Select(_ => (Vector2) mainCamera.ScreenToWorldPoint(Input.mousePosition));
+	}
 
-		onEndDragStream = Observable.EveryUpdate().Where(_ => Input.GetMouseButtonUp(0)).Select(_ => (Vector2)mainCamera.ScreenToWorldPoint(Input.mousePosition));
-
-		var mousePositionAsObservable = Observable.EveryUpdate().Where(_ => Input.GetMouseButton(0)).Select(_ => (Vector2)mainCamera.ScreenToWorldPoint(Input.mousePosition));
-
-		onDragStream = mousePositionAsObservable
-		.SkipUntil(onStartDragStream)
-		.TakeUntil(onEndDragStream)
-		.DistinctUntilChanged()
-		.Repeat();
+	public IObservable<Vector2> DragStreamAsObservable()
+	{
+		return this.UpdateAsObservable()
+			.Where(_ => Input.GetMouseButton(0))
+			.Select(_ => (Vector2) mainCamera.ScreenToWorldPoint(Input.mousePosition))
+			.SkipUntil(StartDragAsObservable())
+			.TakeUntil(EndDragStreamAsObservable())
+			.DistinctUntilChanged()
+			.Repeat();
+		;
 	}
 }

@@ -1,37 +1,42 @@
+using System;
 using UnityEngine;
 using UniRx;
-using UniRx.Triggers;
-using Zenject;
+using VContainer.Unity;
 
-public class PlayerMover : MonoBehaviour
+public class PlayerMover : IInitializable
 {
-	[Inject]
-	private IInputProvider inputProvider;
 	private Rigidbody2D rigidbody;
-
+	private IInputProvider inputProvider;
+	private PlayerCollisionSender collisionSender;
+	
 	public float jumpPower { get; private set; } = 50;
 	private int jumpCount = 2;
 	public bool isGround { get; private set; } = true;
 
-	private void Awake()
+	private PlayerMover(IInputProvider inputProvider, PlayerCollisionSender collisionSender)
 	{
-		rigidbody = GetComponent<Rigidbody2D>();
+		this.inputProvider = inputProvider;
+		this.collisionSender = collisionSender;
+		rigidbody = collisionSender.GetComponent<Rigidbody2D>();
+		//TODO:collisionSenderからPlayer関連のコンポーネント取るのっておかしい気がする
+	}
 
-		inputProvider.onStartDragStream
-		.Zip(inputProvider.onEndDragStream, (startPos, endPos) => startPos - endPos)
-		.WithLatestFrom(this.FixedUpdateAsObservable(), (diff, _) => diff * jumpPower)
-		.Where(_ => jumpCount > 0)
-		.Subscribe(force =>
-		{
-			rigidbody.AddForce(force);
-			jumpCount--;
-			isGround = false;
-		});
+	public void Initialize()
+	{
+		inputProvider
+			.StartDragAsObservable()
+			.Zip(inputProvider.EndDragStreamAsObservable(), (startPos, endPos) => startPos - endPos)
+			.WithLatestFrom(Observable.EveryFixedUpdate(), (diff, _) => diff * jumpPower)
+			.Where(_ => jumpCount > 0)
+			.Subscribe(force =>
+			{
+				rigidbody.AddForce(force);
+				jumpCount--;
+				isGround = false;
+			});
 
-		this.OnCollisionEnter2DAsObservable().Subscribe(_ =>
-		{
-			isGround = true;
-			jumpCount = 2;
-		});
+		collisionSender
+			.CollisionEnterAsObservable
+			.Subscribe(collision => jumpCount = 2);
 	}
 }
