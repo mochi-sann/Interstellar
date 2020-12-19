@@ -95,13 +95,13 @@
       }
     },
     "jp.hadashikick.vcontainer": {
-      "version": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer#1.1.1",
+      "version": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer#1.4.0",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "nuget.mono-cecil": "0.1.6-preview"
       },
-      "hash": "8fd496374974b9198aa2889ac53cdfc5f296690a"
+      "hash": "79de1651b2992151404a4b954261af0d34ed8554"
     },
     "nuget.mono-cecil": {
       "version": "0.1.6-preview",
