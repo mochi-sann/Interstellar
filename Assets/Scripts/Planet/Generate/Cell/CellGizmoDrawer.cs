@@ -4,9 +4,8 @@ using VContainer;
 
 public class CellGizmoDrawer : MonoBehaviour
 {
-#if UNITY_EDITOR
     [Inject] private CellChunkContainer container;
-
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if (!EditorApplication.isPlaying) return;

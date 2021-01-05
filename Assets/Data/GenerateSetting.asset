@@ -20,5 +20,5 @@ MonoBehaviour:
   - {fileID: 3071477516382974426, guid: 54ad45ee2a45a434fb552f9c2aeaf2a6, type: 3}
   - {fileID: 3703071925440959979, guid: a52d6e974c5fd4c1393811efb73c5eb8, type: 3}
   - {fileID: 4719706160730273245, guid: 9f5191b4c82104bf4a1e936fc8980f23, type: 3}
-  prefabMaterial: {fileID: 0}
+  prefabMaterial: {fileID: 2100000, guid: 187cbfaf6df4a4430bfaf1e2dd3a36b2, type: 2}
   generateBorderRangeAtCell: 0
