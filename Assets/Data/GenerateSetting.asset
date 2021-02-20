@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f24f7f81017480fbd8da22e32da6fe7, type: 3}
   m_Name: GenerateSetting
   m_EditorClassIdentifier: 
-  cellSize: 1.12
-  chunkCellRowCount: 5
-  chunkCellColumnCount: 5
-  generateBorderRangeAtCell: 5
+  cellSize: 5.6
+  chunkCellRowCount: 1
+  chunkCellColumnCount: 1
+  generateBorderRangeAtCellChunk: 0
   planets:
   - prefab: {fileID: 5013083628090996854, guid: d78c0f80857ba4208a3e4fe6436c45dd,
       type: 3}
     material: {fileID: 2100000, guid: 187cbfaf6df4a4430bfaf1e2dd3a36b2, type: 2}
-    minSize: 0.2
+    minSize: 0.5
   - prefab: {fileID: 3071477516382974426, guid: 54ad45ee2a45a434fb552f9c2aeaf2a6,
       type: 3}
     material: {fileID: 2100000, guid: 187cbfaf6df4a4430bfaf1e2dd3a36b2, type: 2}
-    minSize: 0.2
+    minSize: 0.5
   - prefab: {fileID: 4719706160730273245, guid: 9f5191b4c82104bf4a1e936fc8980f23,
       type: 3}
     material: {fileID: 2100000, guid: 187cbfaf6df4a4430bfaf1e2dd3a36b2, type: 2}
-    minSize: 0.2
+    minSize: 0.5
