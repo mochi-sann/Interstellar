@@ -1,23 +1,22 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Cell
+namespace Planet.Generate.Cell
 {
-    public Planet planet;
-
-    public Cell(Vector2 min, Vector2 max)
+    public class Cell
     {
-        this.min = min;
-        this.max = max;
-    }
+        private Vector2 _min;
+        private Vector2 _max;
 
-    public Vector2 min { get; }
-    public Vector2 max { get; }
-    public Vector2 center => (min + max) / 2;
-    public float size => Mathf.Abs(max.x - min.x);
+        public Vector2 min { get; }
+        public Vector2 max { get; }
 
-    public void DestroyCell()
-    {
-        planet.Destroy();
-        planet = null;
+        public Vector2 Center => (min + max) / 2;
+        public float Size => Mathf.Abs(max.x - min.x);
+
+        public Cell(Vector2 min, Vector2 max)
+        {
+            this.min = min;
+            this.max = max;
+        }
     }
 }

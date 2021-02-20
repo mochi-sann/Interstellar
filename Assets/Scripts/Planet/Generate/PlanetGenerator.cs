@@ -1,32 +1,32 @@
+﻿using Planet.Generate.Cell;
+using Planet.Generate.Factory;
 using UnityEngine;
 using VContainer;
 
-public class PlanetGenerator
+namespace Planet.Generate
 {
-    private CellChunkContainer cellChunkContainer;
-    private CellInitializer cellInitializer;
-    private PlanetCreator planetCreator;
-    private PlanetCreatePointer planetPointer;
-
-    [Inject]
-    public PlanetGenerator(CellChunkContainer _cellChunkContainer,
-        CellInitializer _cellInitializer,
-        PlanetCreatePointer _planetCreatePointer,
-        PlanetCreator _planetCreator)
+    public class PlanetGenerator
     {
-        this.cellChunkContainer = _cellChunkContainer;
-        this.cellInitializer = _cellInitializer;
-        this.planetPointer = _planetCreatePointer;
-        this.planetCreator = _planetCreator;
-    }
+        private CellInitializer _cellInitializer;
+        private IPlanetFactory _planetFactory;
 
-    public void Generate(Vector2Int generateChunkPosition)
-    {
-        var cellChunk = cellInitializer.Initialize(generateChunkPosition);
+        private CellChunkMap _cellChunkMap;
 
-        planetPointer.SetCreatePoint(ref cellChunk);
-        planetCreator.Create(ref cellChunk);
+        [Inject]
+        public PlanetGenerator(CellInitializer cellInitializer, IPlanetFactory planetFactory,
+            CellChunkMap cellCellChunkMap)
+        {
+            _cellInitializer = cellInitializer;
+            _planetFactory = planetFactory;
+            _cellChunkMap = cellCellChunkMap;
+        }
 
-        cellChunkContainer.AddCellGroup(cellChunk);
+        public void Generate(Vector2Int chunkPosition)
+        {
+            var cellChunk = _cellInitializer.Initialize(chunkPosition);
+            _planetFactory.CreatePlanet(cellChunk);
+
+            _cellChunkMap.AddChunk(cellChunk);
+        }
     }
 }

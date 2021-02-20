@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3071477516382974420}
   - component: {fileID: 3071477516382974421}
   m_Layer: 0
-  m_Name: planet(square)
+  m_Name: Planet(square)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -7105913188517789750, guid: 042659bab4fe847cd850c57d1023b2be,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.24313726, g: 0.57254905, b: 0.8, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

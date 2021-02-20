@@ -16,25 +16,33 @@
 
 Updateで受け取ったインプットをそのまま流す
 
-`PlayerMover` などは受けとったObservableをFixedUpdateのタイミングに変換しなければいけない
+これらのストリームを使う側は必要に応じて`BatchFrame`や`WithLatestFrom`でFixedUpdateに変換する
+
+## プレイヤーの移動(打ち上げ)
+
+プレイヤーの移動はターン制のようになっている  
+アイドル状態　→　打ち上げ　→　planetに刺さるorその他(未定)のアクション
+
+
+`RocketLauncher`
 
 ## planetの自動生成関連
 
-`Planet` : 惑星オブジェクトそのものを表す。ゲームオブジェクトと位置、大きさを持つ
+`Planet`: 惑星オブジェクトそのものを表す。ゲームオブジェクトと位置、大きさを持つ
 
-`Cell` : 座標の変数 `min` と `max` を持ち、その範囲を表す。
+`Cell`: 座標の変数 `min` と `max` を持ち、その範囲を表す。
 
-`CellChunk` : `Cell` を一定範囲で纏めたもの。チャンク座標を `Vector2Int` で持つ
+`CellChunk`: `Cell` を一定範囲で纏めたもの。チャンク座標を `Vector2Int` で持つ
 
 `GenerateSetting`
-|||
-|:---|:----|
-|CellSize:float|セルの`min`から`max`までのサイズ|
-|chunkCellRowCount:int|1チャンクの行のセルの数|
-|chunkCellColumnCount:int|1チャンクの行のセルの数|
+
+||||
+|:---|:---|:---|
+|float|CellSize|セルの`min`から`max`までのサイズ|
+|int|chunkCellRowCount|1チャンクの行のセルの数|
+|int|chunkCellColumnCount|1チャンクの行のセルの数|
 
 ### 生成の流れ
+プレイヤーの位置を監視する
 
-`Player` プレイヤーの位置を監視して規定値以上の場所に行ったらその方向をPlanetGeneratorに伝える
-
-`PlanetPosition` Playerが位置を元に**上下・左右・斜め**の8方向から `PlanetGenerator.Generate(Dir)` を呼ぶ
+規定値以上の位置に行ったらその方向をPlanetGeneratorに伝える

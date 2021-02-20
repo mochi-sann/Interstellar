@@ -1,21 +1,17 @@
 using UnityEngine;
 
-public class CellChunk
+namespace Planet.Generate.Cell
 {
-    public Cell[,] cells;
-    public Vector2Int position;
-
-    public CellChunk(Cell[,] cells, Vector2Int position)
+    public class CellChunk
     {
-        this.cells = cells;
-        this.position = position;
-    }
+        public readonly Cell[,] cells;
+        public Vector2Int chunkPosition;
+        public Transform parent;
 
-    public float cellSize => cells[0, 0].size;
-
-    public void DestroyChunk()
-    {
-        foreach (var cell in cells) cell.DestroyCell();
-        cells = null;
+        public CellChunk(Cell[,] cells, Vector2Int chunkPosition)
+        {
+            this.cells = cells;
+            this.chunkPosition = chunkPosition;
+        }
     }
 }

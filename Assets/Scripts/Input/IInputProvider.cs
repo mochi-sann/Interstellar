@@ -3,7 +3,7 @@ using UnityEngine;
 
 public interface IInputProvider
 {
-    IObservable<Vector2> StartDragAsObservable();
-    IObservable<Vector2> EndDragStreamAsObservable();
-    IObservable<Vector2> DragStreamAsObservable();
+    IObservable<Vector3> StartDragAsObservable();
+    IObservable<Vector3> EndDragStreamAsObservable();
+    IObservable<Vector3> DragStreamAsObservable();
 }

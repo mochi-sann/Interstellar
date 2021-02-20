@@ -1,0 +1,7 @@
+@startuml
+PlanetGenerator --> CellInitializer : Create New Cell
+
+PlanetGenerator -> PlanetFactory : Create Planet At Cell
+
+
+@enduml

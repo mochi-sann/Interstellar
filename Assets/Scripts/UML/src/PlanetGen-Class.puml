@@ -1,0 +1,95 @@
+@startuml
+
+package Planet {
+	class Planet {
+	}
+}
+
+package Player {
+	class PlayerBorderMonitor {
+		OnPlayerMoveChunk : IObservable
+	}
+}
+
+package Planet.Generate {
+	class GenerateSetting {
+		cellScale : float
+		cellWidth : int
+		cellHeight : int
+		
+		chunkSize
+		chunkCellRowCount : int
+		chunkCellHeight : int
+		
+		generateBorderRangeAtCell : int
+	}
+
+	class PlanetGenerator {
+		Generate(chunkPosition : CellChunk)
+	}
+
+	class CellInitializer {
+		Initialize(Vector2Int) : Cell[,]
+	}
+	
+	
+	interface IPlanetCreator {
+	        Create(Cell cell) : GameObject
+	}
+	
+	class PlanetCreator {
+	    Create(Cell cell) : GameObject
+	}
+
+	interface ICreatePointers {
+		Point(chunk : CellChunk) : Vector2
+	}
+	
+	class PlanetCreatePointer {
+	    Point(chunk : CellChunk) : Vector2
+	}
+
+
+    abstract PlanetFactory {
+        CreatePlanet() : GameObject
+    }
+    
+    
+    class TestPlanetFactory {
+        planetCreator : PlanetCreator
+        CreatePlanet() : GameObject
+    }
+
+
+	class CellChunkMap {
+		AddCellGroup(chunk : CellChunk) : void
+		DeleteGroup(chunk : CellChunk) : void
+		CheckCellGroupExist(chunk : CellChunk) : bool
+	}
+
+	class Cell {
+	}
+
+	class CellChunk {
+	chunkPosition : Vector2Int
+	}
+}
+
+CellChunk "1" -> "1..*" Cell
+CellChunkMap "1" --> "0..*" CellChunk
+
+PlanetGenerator --> CellInitializer
+PlanetGenerator --> CellChunkMap
+PlanetGenerator --> PlanetFactory
+
+PlanetCreator ..|> IPlanetCreator
+IPlanetCreator ..> ICreatePointers
+
+PlanetCreatePointer ..|> ICreatePointers
+
+TestPlanetFactory --|> PlanetFactory
+TestPlanetFactory ..> IPlanetCreator
+
+CellInitializer ..> GenerateSetting
+
+@enduml

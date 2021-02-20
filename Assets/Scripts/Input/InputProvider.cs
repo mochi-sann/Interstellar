@@ -1,40 +1,42 @@
 using System;
+using System.Runtime.CompilerServices;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
-public class InputProvider : MonoBehaviour, IInputProvider
+namespace Input
 {
-    private Camera mainCamera;
-
-    private void Awake()
+    public class InputProvider : MonoBehaviour, IInputProvider
     {
-        mainCamera = Camera.main;
-    }
+        private Camera _mainCamera;
 
-    public IObservable<Vector2> StartDragAsObservable()
-    {
-        return this.UpdateAsObservable()
-            .Where(_ => Input.GetMouseButtonDown(0))
-            .Select(_ => (Vector2) mainCamera.ScreenToWorldPoint(Input.mousePosition));
-    }
+        private void Awake()
+        {
+            _mainCamera = Camera.main;
+        }
 
-    public IObservable<Vector2> EndDragStreamAsObservable()
-    {
-        return this.UpdateAsObservable()
-            .Where(_ => Input.GetMouseButtonUp(0))
-            .Select(_ => (Vector2) mainCamera.ScreenToWorldPoint(Input.mousePosition));
-    }
+        public IObservable<Vector3> StartDragAsObservable()
+        {
+            return this.UpdateAsObservable()
+                .Where(_ => UnityEngine.Input.GetMouseButtonDown(0))
+                .Select(_ => _mainCamera.ScreenToWorldPoint(UnityEngine.Input.mousePosition));
+        }
 
-    public IObservable<Vector2> DragStreamAsObservable()
-    {
-        return this.UpdateAsObservable()
-            .Where(_ => Input.GetMouseButton(0))
-            .Select(_ => (Vector2) mainCamera.ScreenToWorldPoint(Input.mousePosition))
-            .SkipUntil(StartDragAsObservable())
-            .TakeUntil(EndDragStreamAsObservable())
-            .DistinctUntilChanged()
-            .Repeat();
-        ;
+        public IObservable<Vector3> EndDragStreamAsObservable()
+        {
+            return this.UpdateAsObservable()
+                .Where(_ => UnityEngine.Input.GetMouseButtonUp(0))
+                .Select(_ => _mainCamera.ScreenToWorldPoint(UnityEngine.Input.mousePosition));
+        }
+
+        public IObservable<Vector3> DragStreamAsObservable()
+        {
+            return this.UpdateAsObservable()
+                .Where(_ => UnityEngine.Input.GetMouseButton(0))
+                .Select(_ => _mainCamera.ScreenToWorldPoint(UnityEngine.Input.mousePosition))
+                .SkipUntil(StartDragAsObservable())
+                .TakeUntil(EndDragStreamAsObservable())
+                .Repeat();
+        }
     }
 }

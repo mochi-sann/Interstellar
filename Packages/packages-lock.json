@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.unity.cinemachine": {
+      "version": "2.3.4",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.collab-proxy": {
       "version": "1.2.16",
       "depth": 0,
@@ -95,13 +102,13 @@
       }
     },
     "jp.hadashikick.vcontainer": {
-      "version": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer#1.4.0",
+      "version": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer#1.5.6",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "nuget.mono-cecil": "0.1.6-preview"
       },
-      "hash": "79de1651b2992151404a4b954261af0d34ed8554"
+      "hash": "7d84fa1a14b38d8c312c7a09e10ed807ae92e736"
     },
     "nuget.mono-cecil": {
       "version": "0.1.6-preview",

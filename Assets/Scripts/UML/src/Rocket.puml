@@ -1,0 +1,24 @@
+@startuml
+
+class RocketLauncher {
+
+}
+
+class InputProvider {
+    StartDragAsObservable() : IObservable<Vector2>
+    EndDragStreamAsObservable() : IObservable<Vector2>
+    DragStreamAsObservable() : IObservable<Vector2>
+}
+
+class RocketLaunchSetting {
+    speed : float
+    rotSpeed : float
+}
+
+circle transform
+circle rigidbody2D
+
+RocketLauncher ..> transform
+RocketLauncher ..> rigidbody2D
+RocketLauncher --> RocketLauncher
+@enduml
