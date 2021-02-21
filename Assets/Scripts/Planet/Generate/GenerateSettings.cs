@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Planet.Generate
 {
-    [CreateAssetMenu(fileName = "GenerateSetting", menuName = "Settings/GenerateSetting")]
+    [CreateAssetMenu(fileName = "GenerateSettings", menuName = "Settings/GenerateSettings")]
     public class GenerateSettings : ScriptableObject
     {
         public float cellSize;
